@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Runner</title>
+  <meta name="description" content="A private NQ futures community: lessons, session recaps and a trade journal. Sign in with Discord.">
+  <meta name="theme-color" content="#1a191c">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script>
+    // skip the opening sequence for returning visits and reduced motion, before anything paints
+    try { if (sessionStorage.getItem("nq:intro") === "1" || matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("no-intro"); } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="sakura-canvas" aria-hidden="true"></canvas>
+
+  <div class="intro" id="intro" aria-hidden="true">
+    <div class="intro-stage">
+      <div class="intro-mark">
+        <svg viewBox="0 0 48 48" fill="none" stroke="#F6F3F4" stroke-width="0.5">
+          <circle cx="24" cy="3.6" r="2" pathLength="1"/>
+          <rect x="22.9" y="5.2" width="2.2" height="7.2" rx="1" pathLength="1"/>
+          <path pathLength="1" d="M13 13.6 C 15 11.6, 17 13.4, 19 12.6 L 29 12.6 C 31 13.4, 33 11.6, 35 13.6 C 33 13.2, 31.5 14.8, 29 14.6 L 19 14.6 C 16.5 14.8, 15 13.2, 13 13.6 Z"/>
+          <path pathLength="1" d="M22 15 L 26 15 L 25.4 40 L 24 46.5 L 22.6 40 Z"/>
+          <path pathLength="1" stroke="#F5A9C4" stroke-width="0.9" d="M25 43 C 17 40, 16.5 34.5, 21 32.5 S 31.5 28.5, 28.5 24 S 19.5 19.5, 20.5 15.5"/>
+        </svg>
+        <img src="logo-mark.svg" alt="">
+      </div>
+      <span class="intro-line"></span>
+      <p class="intro-word" lang="ja">ランナー</p>
+      <p class="intro-credit">Designed &amp; built by <strong>@cogory</strong></p>
+    </div>
+  </div>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html" aria-label="Runner home">
+        <img src="logo-mark.svg" alt="" width="34" height="34">
+        <span class="brand-name">Runner</span><span class="beta-tag">Beta</span>
+      </a>
+      <nav class="main-nav" aria-label="Main">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="index.html#trades">Trades</a>
+        <a href="library.html">Library</a>
+        <a href="journal.html">Journal</a>
+      </nav>
+      <div class="header-right">
+        <span class="server-stats" data-server-stats></span>
+        <div data-account></div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <span class="hero-kicker"><span class="live-dot" aria-hidden="true"></span>A private NQ futures community</span>
+          <h1 id="hero-title" data-reveal-words>Let them take the bait. You take the move.</h1>
+          <p class="lede">Lessons, session recaps and a trade journal for the Runner's Club Discord. Sign in with your Discord account to step inside.</p>
+          <div class="hero-actions">
+            <span data-signed-out>
+              <button type="button" class="btn btn-primary" data-signin>Sign in with Discord</button>
+            </span>
+            <a class="btn btn-primary" href="library.html" data-signed-in hidden>Open the library</a>
+            <a class="btn btn-ghost" href="#inside">See what's inside</a>
+          </div>
+          <p class="ny-clock" data-ny-clock>
+            <span class="ny-label">New York</span>
+            <strong data-ny-time>--:--</strong>
+            <span class="ny-sep" aria-hidden="true"></span>
+            <span data-ny-status></span>
+          </p>
+        </div>
+      </div>
+      <button type="button" class="signature" data-copy="cogory" aria-label="Designed and built by @cogory. Copy the Discord username for inquiries.">
+        <span class="signature-kicker">Designed &amp; built by</span>
+        <span class="signature-name">@cogory</span>
+        <svg class="signature-stroke" viewBox="0 0 240 18" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4 12 C 60 4, 140 3, 236 8"/></svg>
+        <span class="signature-hint" data-copy-hint>DM on Discord for inquiries</span>
+      </button>
+    </section>
+
+    <div class="ribbon" aria-hidden="true">
+      <div class="ribbon-track">
+        <span lang="ja">誘引<em>Inducement</em></span><svg viewBox="-20 -20 40 40"><use href="#petal-flower"/></svg>
+        <span lang="ja">忍耐<em>Patience</em></span><svg viewBox="-20 -20 40 40"><use href="#petal-flower"/></svg>
+        <span lang="ja">規律<em>Discipline</em></span><svg viewBox="-20 -20 40 40"><use href="#petal-flower"/></svg>
+        <span lang="ja">一閃<em>One clean cut</em></span><svg viewBox="-20 -20 40 40"><use href="#petal-flower"/></svg>
+        <span lang="ja">静寂<em>Stillness</em></span><svg viewBox="-20 -20 40 40"><use href="#petal-flower"/></svg>
+        <span lang="ja">桜<em>Sakura</em></span><svg viewBox="-20 -20 40 40"><use href="#petal-flower"/></svg>
+        <span lang="ja">誘引<em>Inducement</em></span><svg viewBox="-20 -20 40 40"><use href="#petal-flower"/></svg>
+        <span lang="ja">忍耐<em>Patience</em></span><svg viewBox="-20 -20 40 40"><use href="#petal-flower"/></svg>
+        <span lang="ja">規律<em>Discipline</em></span><svg viewBox="-20 -20 40 40"><use href="#petal-flower"/></svg>
+        <span lang="ja">一閃<em>One clean cut</em></span><svg viewBox="-20 -20 40 40"><use href="#petal-flower"/></svg>
+        <span lang="ja">静寂<em>Stillness</em></span><svg viewBox="-20 -20 40 40"><use href="#petal-flower"/></svg>
+        <span lang="ja">桜<em>Sakura</em></span><svg viewBox="-20 -20 40 40"><use href="#petal-flower"/></svg>
+      </div>
+    </div>
+
+    <section class="section" id="trades" aria-labelledby="trades-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="trades-title">Runner's trades</h2>
+          <p>Real positions from the mentor's own charts and account. Each one is redrawn here, and every number is copied straight from his screenshots.</p>
+        </div>
+
+        <div class="trades">
+          <article class="trade is-lead spot">
+            <header class="trade-head">
+              <div class="trade-id">
+                <span class="trade-sym">NQ1!</span>
+                <span class="trade-tf">1 hour</span>
+                <span class="trade-side">Short</span>
+              </div>
+              <span class="trade-tag">8 contracts</span>
+            </header>
+            <div class="trade-chart is-tall"><canvas data-trade-chart="sweep" aria-hidden="true"></canvas></div>
+            <dl class="trade-stats">
+              <div><dt>Entry</dt><dd>29,934.50</dd></div>
+              <div><dt>Price at screenshot</dt><dd>28,321.25</dd></div>
+              <div><dt>Open P&amp;L</dt><dd class="is-win" data-count="257920" data-prefix="+$" data-decimals="0">+$257,920</dd></div>
+            </dl>
+            <div class="trade-foot">
+              <p class="trade-note">Short from 29,934.50 after the spike above 30,000, held through the whole leg down. Still open at 28,321.25 when the screenshot was taken.</p>
+              <button type="button" class="proof" data-proof="proof-1.jpg" data-proof-alt="Runner's TradingView screenshot: NQ1! 1-hour chart, short 8 contracts from 29,934.50, showing +257,920 USD."><img src="proof-1.jpg" alt="" width="698" height="1497" loading="lazy" decoding="async"><span class="proof-text"><strong>Original screenshot</strong><span>Open full size</span></span></button>
+            </div>
+          </article>
+
+          <article class="trade spot">
+            <header class="trade-head">
+              <div class="trade-id">
+                <span class="trade-sym">NQ1!</span>
+                <span class="trade-tf">15 min</span>
+                <span class="trade-side">Short</span>
+              </div>
+              <span class="trade-tag">4 contracts</span>
+            </header>
+            <div class="trade-chart"><canvas data-trade-chart="bos" aria-hidden="true"></canvas></div>
+            <dl class="trade-stats">
+              <div><dt>Sold</dt><dd>31,254.25</dd></div>
+              <div><dt>Covered</dt><dd>30,892.50</dd></div>
+              <div><dt>Captured</dt><dd class="is-win" data-count="361.75" data-prefix="+" data-suffix=" pts" data-decimals="2">+361.75 pts</dd></div>
+            </dl>
+            <div class="trade-foot">
+              <p class="trade-note">Buy-side marked above the range, a break of structure, then short into the three sell-side pools he drew below.</p>
+              <button type="button" class="proof" data-proof="proof-2.webp" data-proof-alt="Runner's TradingView screenshot: NQ1! 15-minute chart with liquidity marked, short 4 at 31,254.25 and covered 4 at 30,892.50."><img src="proof-2.webp" alt="" width="2000" height="1364" style="object-position: 64% 35%" loading="lazy" decoding="async"><span class="proof-text"><strong>Original screenshot</strong><span>Open full size</span></span></button>
+            </div>
+          </article>
+
+          <article class="trade trade-perf spot">
+            <header class="trade-head">
+              <div class="trade-id">
+                <span class="trade-sym">Account</span>
+                <span class="trade-tf">1 week</span>
+              </div>
+              <span class="trade-tag">to Nov 4, 2026</span>
+            </header>
+            <p class="perf-label">Total performance</p>
+            <p class="perf-total"><span data-count="15924.35" data-prefix="+$" data-decimals="2">+$15,924.35</span></p>
+            <p class="perf-change"><span data-count="746.43" data-prefix="+" data-suffix="%" data-decimals="2">+746.43%</span> change</p>
+            <div class="perf-bars" role="img" aria-label="Daily profit and loss for the week: four small red days, then one large green day on November 4, 2026.">
+              <span class="bar is-loss" style="--h: 0.104; --i: 0"></span>
+              <span class="bar is-loss" style="--h: 0.07; --i: 1"></span>
+              <span class="bar is-loss" style="--h: 0.041; --i: 2"></span>
+              <span class="bar is-loss" style="--h: 0.019; --i: 3"></span>
+              <span class="bar is-gain" style="--h: 1; --i: 4"></span>
+            </div>
+            <dl class="trade-stats is-two">
+              <div><dt>Open positions</dt><dd>+$5,268.87</dd></div>
+              <div><dt>Closed positions</dt><dd>+$10,655.48</dd></div>
+            </dl>
+            <div class="trade-foot">
+              <p class="trade-note">From his broker app, one-week view.</p>
+              <button type="button" class="proof" data-proof="proof-3.webp" data-proof-alt="Runner's account performance screen: total performance +$15,924.35, change +746.43%, open positions +$5,268.87, closed positions +$10,655.48."><img src="proof-3.webp" alt="" width="1158" height="2000" loading="lazy" decoding="async"><span class="proof-text"><strong>Original screenshot</strong><span>Open full size</span></span></button>
+            </div>
+          </article>
+        </div>
+
+        <p class="trades-disclaimer">One trader's results. They aren't typical, and they don't promise future returns.</p>
+      </div>
+    </section>
+
+    <section class="section" id="inside" aria-labelledby="inside-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="inside-title">Everything outside the Discord, in one place.</h2>
+          <p>The chat moves fast. This is where the lessons stay put and your trades get written down.</p>
+        </div>
+        <div class="inside">
+          <article class="inside-item is-lead spot">
+            <div class="lead-art" aria-hidden="true">
+              <div class="frame"><span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></span></div>
+            </div>
+            <h3>Video library</h3>
+            <p>Every lesson and session recap, sorted by topic, so you can find the one you need before the open.</p>
+            <a class="link" href="library.html">Browse the library</a>
+          </article>
+          <article class="inside-item spot">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></span>
+            <h3>Trade journal</h3>
+            <p>Log every trade: entry, stop, target, risk to reward, why you took it and how you felt. Only you can see it.</p>
+            <a class="link" href="journal.html">Open your journal</a>
+          </article>
+          <article class="inside-item spot">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>
+            <h3>One login</h3>
+            <p>Your Discord account is your key. No new password, no extra sign-up form.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="code" aria-labelledby="code-title">
+      <div class="wrap codex">
+        <div class="codex-aside">
+          <div class="codex-sticky">
+            <h2 id="code-title">The code</h2>
+            <p>Seven lines every member learns before they learn a single setup.</p>
+            <div class="codex-glyph" aria-hidden="true" lang="ja">
+              <span>忍</span><span>静</span><span>誘</span><span>斬</span><span>律</span><span>鏡</span><span>散</span>
+            </div>
+            <p class="codex-count" data-codex-count aria-hidden="true">1 / 7</p>
+          </div>
+        </div>
+        <ol class="codex-list">
+          <li class="codex-item">
+            <span class="codex-kanji" lang="ja" aria-hidden="true">忍</span>
+            <div><h3>Patience <span>nin</span></h3><p>The first move of the session is usually bait. Let it happen without you.</p></div>
+          </li>
+          <li class="codex-item">
+            <span class="codex-kanji" lang="ja" aria-hidden="true">静</span>
+            <div><h3>Stillness <span>sei</span></h3><p>Sitting flat through chop is a position. Doing nothing well is a skill.</p></div>
+          </li>
+          <li class="codex-item">
+            <span class="codex-kanji" lang="ja" aria-hidden="true">誘</span>
+            <div><h3>The lure <span>yū</span></h3><p>Where stops gather, price will visit. Mark the pool before someone takes it.</p></div>
+          </li>
+          <li class="codex-item">
+            <span class="codex-kanji" lang="ja" aria-hidden="true">斬</span>
+            <div><h3>The cut <span>zan</span></h3><p>When it's time, enter once and cleanly. Hesitation is a second entry at a worse price.</p></div>
+          </li>
+          <li class="codex-item">
+            <span class="codex-kanji" lang="ja" aria-hidden="true">律</span>
+            <div><h3>Discipline <span>ritsu</span></h3><p>Risk is decided before the click, never after it.</p></div>
+          </li>
+          <li class="codex-item">
+            <span class="codex-kanji" lang="ja" aria-hidden="true">鏡</span>
+            <div><h3>The mirror <span>kyō</span></h3><p>Your journal shows who you were today. Read it the way a stranger would.</p></div>
+          </li>
+          <li class="codex-item">
+            <span class="codex-kanji" lang="ja" aria-hidden="true">散</span>
+            <div><h3>Letting go <span>san</span></h3><p>Petals fall without complaint. Take the loss, close the chart, walk outside.</p></div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="seasons" aria-labelledby="seasons-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="seasons-title">Every market has four seasons.</h2>
+          <p>Price moves in cycles, the way a tree does. The horizon in each painting is the shape of that phase. Learn to tell which one you're standing in.</p>
+        </div>
+        <div class="seasons">
+          <figure class="season spot" data-season="spring">
+            <div class="season-art">
+              <canvas aria-hidden="true"></canvas>
+              <svg class="season-line" aria-hidden="true" preserveAspectRatio="none"><path pathLength="1"/><circle r="3.5"/></svg>
+              <span class="season-kanji" lang="ja" aria-hidden="true">春</span>
+            </div>
+            <figcaption>
+              <span class="season-phase">Accumulation</span>
+              <h3>Spring</h3>
+              <p>A quiet range while size is built. The last flush below the lows is the trap.</p>
+            </figcaption>
+          </figure>
+          <figure class="season spot" data-season="summer">
+            <div class="season-art">
+              <canvas aria-hidden="true"></canvas>
+              <svg class="season-line" aria-hidden="true" preserveAspectRatio="none"><path pathLength="1"/><circle r="3.5"/></svg>
+              <span class="season-kanji" lang="ja" aria-hidden="true">夏</span>
+            </div>
+            <figcaption>
+              <span class="season-phase">Expansion</span>
+              <h3>Summer</h3>
+              <p>Full bloom. The move everyone sees, after the patient ones are already in.</p>
+            </figcaption>
+          </figure>
+          <figure class="season spot" data-season="autumn">
+            <div class="season-art">
+              <canvas aria-hidden="true"></canvas>
+              <svg class="season-line" aria-hidden="true" preserveAspectRatio="none"><path pathLength="1"/><circle r="3.5"/></svg>
+              <span class="season-kanji" lang="ja" aria-hidden="true">秋</span>
+            </div>
+            <figcaption>
+              <span class="season-phase">Distribution</span>
+              <h3>Autumn</h3>
+              <p>Highs that can't hold. Late buyers arrive just as the early ones leave.</p>
+            </figcaption>
+          </figure>
+          <figure class="season spot" data-season="winter">
+            <div class="season-art">
+              <canvas aria-hidden="true"></canvas>
+              <svg class="season-line" aria-hidden="true" preserveAspectRatio="none"><path pathLength="1"/><circle r="3.5"/></svg>
+              <span class="season-kanji" lang="ja" aria-hidden="true">冬</span>
+            </div>
+            <figcaption>
+              <span class="season-phase">Decline</span>
+              <h3>Winter</h3>
+              <p>Bare branches. Protect what you made and wait for the thaw.</p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="how-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="how-title">How it works</h2>
+        </div>
+        <ol class="steps">
+          <li>
+            <h3>Sign in with Discord</h3>
+            <p>One click. We only see your Discord name and avatar.</p>
+          </li>
+          <li>
+            <h3>Study the library</h3>
+            <p>Start with the foundations, then work through recaps of real sessions.</p>
+          </li>
+          <li>
+            <h3>Journal every trade</h3>
+            <p>Write down the plan, the result and the feeling. Review it every week.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section haiku-section" aria-label="A haiku">
+      <div class="wrap haiku">
+        <span class="seal" lang="ja" aria-hidden="true">走</span>
+        <blockquote>
+          <p>Stops rest beneath lows.<br>A patient hand sweeps them clean,<br>then the petals fall.</p>
+        </blockquote>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="faq-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="faq-title">Questions</h2>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>Who can sign in?</summary>
+            <p>Anyone with a Discord account. Sign in with the same account you use in the server.</p>
+          </details>
+          <details>
+            <summary>Is my journal private?</summary>
+            <p>Yes. Your entries are tied to your account and nobody else can read them.</p>
+          </details>
+          <details>
+            <summary>Do I pay for anything here?</summary>
+            <p>No. Membership is handled through the Discord. This site is part of it.</p>
+          </details>
+          <details>
+            <summary>Which markets do you trade?</summary>
+            <p>Futures, with a focus on NQ and MNQ. The journal also supports ES and MES.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section closing" aria-labelledby="closing-title">
+      <div class="wrap">
+        <h2 id="closing-title">The trap is set every session. Be the one who waits.</h2>
+        <p>Sign in, pick a lesson, and log your next trade.</p>
+        <div class="hero-actions">
+          <span data-signed-out><button type="button" class="btn btn-primary" data-signin>Sign in with Discord</button></span>
+          <a class="btn btn-primary" href="journal.html" data-signed-in hidden>Open your journal</a>
+          <a class="btn btn-ghost" href="#" data-invite>Join the Discord</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="proof-viewer" id="proof-viewer" aria-label="Original screenshot">
+    <button type="button" class="icon-btn proof-close" aria-label="Close screenshot">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <img alt="">
+  </dialog>
+
+  <footer class="site-footer footer-grand">
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" aria-label="Runner home">
+          <img src="logo-mark.svg" alt="" width="34" height="34">
+          <span class="brand-name">Runner</span>
+        </a>
+        <p class="risk-note">Futures trading involves substantial risk of loss and is not suitable for everyone. Content on this site is education, not financial advice.</p>
+      </div>
+      <div class="footer-col">
+        <h2>Pages</h2>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="index.html">Home</a>
+          <a href="library.html">Library</a>
+          <a href="journal.html">Journal</a>
+          <a href="#" data-invite>Discord</a>
+        </nav>
+      </div>
+      <div class="footer-col">
+        <h2>Market clock</h2>
+        <p class="ny-clock ny-clock-block" data-ny-clock>
+          <span class="ny-label">New York</span>
+          <strong data-ny-time>--:--</strong>
+          <span data-ny-status></span>
+        </p>
+      </div>
+      <div class="footer-col">
+        <h2>Colophon</h2>
+        <p class="colophon">Set in Shippori Mincho and Zen Kaku Gothic New. Every tree, ridge and petal here is painted live in your browser, with no photos. The valley drifts as you scroll, and night falls as you read.</p>
+        <p class="credit">Design and build by <strong>@cogory</strong>. For inquiries, DM @cogory on Discord.</p>
+      </div>
+    </div>
+    <p class="footer-mark" aria-hidden="true">Runner</p>
+    <div class="wrap footer-base">
+      <span>&copy; <span data-year></span> Runner. Currently in beta, so things may change.</span>
+      <a href="#main">Back to the top</a>
+    </div>
+  </footer>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <g id="petal-flower" fill="currentColor">
+        <path d="M0 0 C -6 -5 -8 -13 -3.6 -18 L 0 -15 L 3.6 -18 C 8 -13 6 -5 0 0 Z"/>
+        <path transform="rotate(72)" d="M0 0 C -6 -5 -8 -13 -3.6 -18 L 0 -15 L 3.6 -18 C 8 -13 6 -5 0 0 Z"/>
+        <path transform="rotate(144)" d="M0 0 C -6 -5 -8 -13 -3.6 -18 L 0 -15 L 3.6 -18 C 8 -13 6 -5 0 0 Z"/>
+        <path transform="rotate(216)" d="M0 0 C -6 -5 -8 -13 -3.6 -18 L 0 -15 L 3.6 -18 C 8 -13 6 -5 0 0 Z"/>
+        <path transform="rotate(288)" d="M0 0 C -6 -5 -8 -13 -3.6 -18 L 0 -15 L 3.6 -18 C 8 -13 6 -5 0 0 Z"/>
+      </g>
+    </defs>
+  </svg>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  <script src="sakura.js"></script>
+  <script src="ink.js"></script>
+  <script src="trades.js"></script>
+  <script src="flourish.js"></script>
+</body>
+</html>

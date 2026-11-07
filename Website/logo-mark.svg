@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-label="Runner">
+  <defs>
+    <path id="p" d="M0 0 C -6 -5 -8 -13 -3.6 -18 L 0 -15 L 3.6 -18 C 8 -13 6 -5 0 0 Z"/>
+    <g id="flower">
+      <use href="#p"/>
+      <use href="#p" transform="rotate(72)"/>
+      <use href="#p" transform="rotate(144)"/>
+      <use href="#p" transform="rotate(216)"/>
+      <use href="#p" transform="rotate(288)"/>
+      <circle r="3.2" fill="#E0678F"/>
+    </g>
+  </defs>
+
+  <!-- Sword -->
+  <circle cx="24" cy="3.6" r="2" fill="#F6F3F4"/>
+  <rect x="22.9" y="5.2" width="2.2" height="7.2" rx="1" fill="#F6F3F4"/>
+  <path d="M13 13.6 C 15 11.6, 17 13.4, 19 12.6 L 29 12.6 C 31 13.4, 33 11.6, 35 13.6 C 33 13.2, 31.5 14.8, 29 14.6 L 19 14.6 C 16.5 14.8, 15 13.2, 13 13.6 Z" fill="#F6F3F4"/>
+  <path d="M22 15 L 26 15 L 25.4 40 L 24 46.5 L 22.6 40 Z" fill="#F6F3F4"/>
+  <path d="M24 16 L 24 39" stroke="#000" stroke-opacity="0.35" stroke-width="0.6"/>
+
+  <!-- Sakura vine winding up the blade -->
+  <path d="M25 43 C 17 40, 16.5 34.5, 21 32.5 S 31.5 28.5, 28.5 24 S 19.5 19.5, 20.5 15.5" stroke="#F5A9C4" stroke-width="1.3" stroke-linecap="round"/>
+  <g fill="#F5A9C4">
+    <use href="#flower" transform="translate(19 13.2) scale(0.27)"/>
+    <use href="#flower" transform="translate(29.6 25.6) scale(0.23)"/>
+    <use href="#flower" transform="translate(18.6 35.4) scale(0.2)"/>
+  </g>
+  <g fill="#FCE4EE">
+    <use href="#p" transform="translate(33 33) rotate(40) scale(0.11)"/>
+    <use href="#p" transform="translate(14.5 24) rotate(-30) scale(0.09)"/>
+  </g>
+</svg>

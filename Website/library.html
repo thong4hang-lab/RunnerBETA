@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Library · Runner</title>
+  <meta name="theme-color" content="#1a191c">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="app-page">
+  <canvas id="sakura-canvas" aria-hidden="true"></canvas>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html" aria-label="Runner home">
+        <img src="logo-mark.svg" alt="" width="34" height="34">
+        <span class="brand-name">Runner</span><span class="beta-tag">Beta</span>
+      </a>
+      <nav class="main-nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="index.html#trades">Trades</a>
+        <a href="library.html" aria-current="page">Library</a>
+        <a href="journal.html">Journal</a>
+      </nav>
+      <div class="header-right">
+        <span class="server-stats" data-server-stats></span>
+        <div data-account></div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <p class="preview-banner">Preview mode: sign-in is pretend and uploads aren't saved. Connect Supabase and Discord (see SETUP.md) to go live.</p>
+
+    <div class="gate" data-signed-out hidden>
+      <img src="logo-mark.svg" alt="">
+      <h2>The library is for members</h2>
+      <p>Sign in with your Discord account to watch lessons and session recaps.</p>
+      <button type="button" class="btn btn-primary" data-signin>Sign in with Discord</button>
+    </div>
+
+    <div data-signed-in hidden>
+      <div class="page-head">
+        <div>
+          <h1>Library</h1>
+          <p>Lessons and session recaps, newest first.</p>
+        </div>
+        <button type="button" class="btn btn-sakura" id="toggle-upload" aria-expanded="false" aria-controls="upload-panel" hidden>Upload a video</button>
+      </div>
+
+      <section class="panel" id="upload-panel" aria-labelledby="upload-title" hidden style="margin-bottom: 32px;">
+        <h2 id="upload-title">Upload a video</h2>
+        <p>Only admins see this. Members see the video as soon as it finishes uploading.</p>
+        <form id="upload-form" novalidate>
+          <div class="form-grid">
+            <div class="field span-2">
+              <label for="v-title">Title</label>
+              <input id="v-title" name="title" required maxlength="120" autocomplete="off">
+            </div>
+            <div class="field span-2">
+              <label for="v-category">Category</label>
+              <select id="v-category" name="category"></select>
+            </div>
+            <div class="field span-4">
+              <label for="v-description">Description</label>
+              <textarea id="v-description" name="description" maxlength="600" placeholder="What will someone learn from this video?"></textarea>
+            </div>
+            <div class="field span-4">
+              <label for="v-file">Video file</label>
+              <input id="v-file" name="file" type="file" accept="video/mp4,video/webm,video/quicktime" required>
+              <span class="hint">MP4 works best. Supabase's free plan allows files up to 50 MB.</span>
+            </div>
+          </div>
+          <div class="form-actions">
+            <p class="status" id="upload-status" role="status" aria-live="polite"></p>
+            <button type="button" class="btn btn-ghost" id="cancel-upload">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="upload-submit">Upload video</button>
+          </div>
+        </form>
+      </section>
+
+      <div class="chips" role="group" aria-label="Filter by category" id="filters"></div>
+      <div class="video-grid" id="video-grid" aria-live="polite"></div>
+    </div>
+  </main>
+
+  <dialog id="player" aria-labelledby="player-title">
+    <div class="dialog-head">
+      <h2 id="player-title"></h2>
+      <button type="button" class="icon-btn" id="close-player" aria-label="Close video">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="dialog-body" id="player-body"></div>
+  </dialog>
+
+  <footer class="site-footer footer-grand">
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" aria-label="Runner home">
+          <img src="logo-mark.svg" alt="" width="34" height="34">
+          <span class="brand-name">Runner</span>
+        </a>
+        <p class="risk-note">Futures trading involves substantial risk of loss and is not suitable for everyone. Content on this site is education, not financial advice.</p>
+      </div>
+      <div class="footer-col">
+        <h2>Pages</h2>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="index.html">Home</a>
+          <a href="library.html">Library</a>
+          <a href="journal.html">Journal</a>
+          <a href="#" data-invite>Discord</a>
+        </nav>
+      </div>
+      <div class="footer-col">
+        <h2>Market clock</h2>
+        <p class="ny-clock ny-clock-block" data-ny-clock>
+          <span class="ny-label">New York</span>
+          <strong data-ny-time>--:--</strong>
+          <span data-ny-status></span>
+        </p>
+      </div>
+      <div class="footer-col">
+        <h2>Colophon</h2>
+        <p class="colophon">Set in Shippori Mincho and Zen Kaku Gothic New. Every tree, ridge and petal here is painted live in your browser, with no photos. The valley drifts as you scroll, and night falls as you read.</p>
+        <p class="credit">Design and build by <strong>@cogory</strong>. For inquiries, DM @cogory on Discord.</p>
+      </div>
+    </div>
+    <p class="footer-mark" aria-hidden="true">Runner</p>
+    <div class="wrap footer-base">
+      <span>&copy; <span data-year></span> Runner. Currently in beta, so things may change.</span>
+      <a href="#main">Back to the top</a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  <script src="library.js"></script>
+  <script src="sakura.js"></script>
+  <script src="flourish.js"></script>
+</body>
+</html>
